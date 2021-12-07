@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { APP_NAME, PAGE_TITLES } from '../../constants';
 import { Presenter } from '../../utils/connect';
 import { HeaderViewProps } from './view';
 
@@ -15,8 +16,8 @@ export const HeaderPresenter: Presenter<{}, HeaderViewProps> = ({}) => {
   }, []);
 
   return {
-    logoString: 'R CoC Tool',
-    pages: ['About', 'Create(Ver.7)', 'Create(Ver.6)'],
+    logoString: APP_NAME,
+    pages: Object.values(PAGE_TITLES),
     anchorElNav,
     handleOpenNavMenu,
     handleCloseNavMenu,
