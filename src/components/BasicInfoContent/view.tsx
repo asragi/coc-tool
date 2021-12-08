@@ -1,16 +1,14 @@
 import { Box, Stack } from '@mui/material';
 import { FaceImage } from '../FaceImage';
+import { ProfileInput } from '../ProfileInput';
 
 export interface BasicInfoContentViewProps {}
 
 export const BasicInfoContentView = () => {
   return (
-    <Stack>
-      <Stack direction="row">
-        <FaceImage />
-        <Box>Info</Box>
-      </Stack>
-      <Box>params</Box>
+    <Stack direction='row'>
+      <FaceImage />
+      <ProfileInput />
     </Stack>
   );
 };
