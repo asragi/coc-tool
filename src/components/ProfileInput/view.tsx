@@ -25,13 +25,13 @@ export const ProfileInputView = ({
 
   return (
     <Grid container spacing={0.5} columns={5}>
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         <TextField label={nameLabel} sx={style} />
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         <TextField label={jobLabel} sx={style} />
       </Grid>
-      <Grid item xs={3} />
+      <Grid item xs={1} />
       <Grid item xs={1}>
         <TextField
           label={ageLabel}
