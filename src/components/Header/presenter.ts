@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
-import { APP_NAME, PAGE_TITLES } from '../../constants';
+import { APP_NAME, PAGE_PATHS, PAGE_TITLES } from '../../constants';
+import { PageKeys } from '../../types';
 import { Presenter } from '../../utils/connect';
 import { HeaderViewProps } from './view';
 
@@ -15,9 +16,16 @@ export const HeaderPresenter: Presenter<{}, HeaderViewProps> = ({}) => {
     setAnchorElNav(null);
   }, []);
 
+  const pages = PageKeys.map((page) => {
+    return {
+      text: PAGE_TITLES[page],
+      href: PAGE_PATHS[page]
+    };
+  });
+
   return {
     logoString: APP_NAME,
-    pages: Object.values(PAGE_TITLES),
+    pages,
     anchorElNav,
     handleOpenNavMenu,
     handleCloseNavMenu,

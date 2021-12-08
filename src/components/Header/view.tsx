@@ -11,10 +11,11 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MouseEventHandler } from 'react';
+import Link from '../Link';
 
 export interface HeaderViewProps {
   logoString: string;
-  pages: string[];
+  pages: { text: string, href: string }[];
   anchorElNav: null | HTMLElement;
   handleOpenNavMenu: MouseEventHandler<HTMLButtonElement>;
   handleCloseNavMenu: MouseEventHandler<HTMLElement>;
@@ -69,8 +70,8 @@ export const HeaderView = ({
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+                <MenuItem key={page.text} onClick={handleCloseNavMenu}>
+                  <Typography textAlign='center'>{page.text}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -86,11 +87,13 @@ export const HeaderView = ({
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.text}
+                href={page.href}
+                component={Link}
+                noLinkStyle
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.text}
               </Button>
             ))}
           </Box>
