@@ -4,6 +4,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from '@mui/material';
 import { ParameterKey6, ParameterType, ParameterTypes } from '../../types';
 
@@ -20,6 +21,8 @@ export interface ParameterMatrixViewProps {
 export const ParameterMatrixView = ({
   parameters,
 }: ParameterMatrixViewProps) => {
+  const inputStyle = { margin: 0 };
+
   return (
     <TableContainer component='table'>
       <TableHead>
@@ -36,7 +39,14 @@ export const ParameterMatrixView = ({
             <TableRow key={type}>
               <TableCell>{type}</TableCell>
               {Object.values(parameters).map((val, i) => (
-                <TableCell key={`${type}:${i}`}>{val[type]}</TableCell>
+                <TableCell key={`${type}:${i}`} sx={{ padding: 0 }}>
+                  <TextField
+                    type='number'
+                    inputProps={{ min: 0 }}
+                    value={val[type]}
+                    sx={inputStyle}
+                  />
+                </TableCell>
               ))}
             </TableRow>
           );
