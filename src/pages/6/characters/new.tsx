@@ -4,11 +4,29 @@ import Copyright from '../../../components/Copyright';
 import { Header } from '../../../components/Header';
 import ProTip from '../../../components/ProTip';
 import Link from '../../../components/Link';
+import { Stack } from '@mui/material';
+import { CharacterInfo } from '../../../components/CharacterInfo';
+import { BasicInfoContent } from '../../../components/BasicInfoContent';
+import { ParameterMatrix } from '../../../components/ParameterMatrix';
 
 const Edit: NextPage = () => {
+  const empty = <div>Empty</div>;
+
   return (
     <Container maxWidth='lg'>
       <Header />
+      <Stack>
+        <CharacterInfo
+          headerText='BasicInfo'
+          innerContent={<BasicInfoContent />}
+        />
+        <CharacterInfo
+          headerText='Parameters'
+          innerContent={<ParameterMatrix />}
+        />
+        <CharacterInfo headerText='Skills' innerContent={empty} />
+        <CharacterInfo headerText='Battle' innerContent={empty} />
+      </Stack>
       <Box
         sx={{
           my: 4,
