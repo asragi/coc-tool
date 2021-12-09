@@ -15,7 +15,7 @@ import Link from '../Link';
 
 export interface HeaderViewProps {
   logoString: string;
-  pages: { text: string, href: string }[];
+  pages: { text: string; href: string }[];
   anchorElNav: null | HTMLElement;
   handleOpenNavMenu: MouseEventHandler<HTMLButtonElement>;
   handleCloseNavMenu: MouseEventHandler<HTMLElement>;
@@ -77,9 +77,9 @@ export const HeaderView = ({
             </Menu>
           </Box>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
+            component='div'
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             {logoString}
