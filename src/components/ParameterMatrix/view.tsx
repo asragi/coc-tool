@@ -6,6 +6,7 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
+import { ChangeEvent } from 'react';
 import {
   ExtraParameter6,
   ParameterKey6,
@@ -28,11 +29,17 @@ type ExtraParameterSet = {
 export interface ParameterMatrixViewProps {
   parameters: ParameterSet;
   extraParams: ExtraParameterSet;
+  onChange: (
+    key: ParameterKey | ExtraParameter,
+    t: ParameterType,
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 export const ParameterMatrixView = ({
   parameters,
   extraParams,
+  onChange,
 }: ParameterMatrixViewProps) => {
   const inputStyle = { margin: 0 };
 
@@ -44,21 +51,24 @@ export const ParameterMatrixView = ({
     ));
   };
 
-  const renderCellSet = (
+  const renderCellSet = function <T extends (ParameterKey | ExtraParameter)>(
     values: {
-      [key: string]: {
+      [key in T]: {
         [key in ParameterType]: number;
       };
     },
     type: ParameterType
-  ) => {
-    return Object.values(values).map((val, i) => (
+  ) {
+    const keys = Object.keys(values) as T[];
+
+    return keys.map((key, i) => (
       <TableCell key={`${type}:${i}`} sx={{ padding: 0 }}>
         <TextField
           type='number'
           inputProps={{ min: 0 }}
-          value={val[type]}
+          value={values[key][type]}
           sx={inputStyle}
+          onChange={(e) => onChange(key, type, e)}
         />
       </TableCell>
     ));
