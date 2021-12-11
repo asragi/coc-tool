@@ -11,7 +11,7 @@ type SomeParameter = ParameterKey | ExtraParameterKey;
 
 interface Props {
   params: ParamSet;
-  onRoll?: () => void;
+  onRoll?: (label: ParameterKey) => void;
   onRollAll?: () => void;
   onChangeParameter: (
     key: SomeParameter,

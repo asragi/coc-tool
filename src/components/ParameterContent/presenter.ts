@@ -5,6 +5,7 @@ import {
 } from '../../infrastructures/dummy/parameterRepository';
 import { ExtraParameterKey, ParameterKey, ParameterType, Version } from '../../types';
 import { Presenter } from '../../utils/connect';
+import { diceRoll } from '../../utils/diceRoll';
 import { ParameterContentViewProps } from './view';
 
 interface Props {
@@ -19,6 +20,13 @@ export const ParameterContentPresenter: Presenter<
   const initialExtraParameter = getUserExtraParameter(version);
   const [parameter, setParameter] = useState(initialParameter);
   const [extraParameter, setExtraParameter] = useState(initialExtraParameter);
+
+  const onRoll = useCallback((label: ParameterKey) => {
+    const afterValue = diceRoll(version, label);
+    const newParameter = {...parameter};
+    newParameter[label]['self'] = afterValue;
+    setParameter(newParameter);
+  } , [parameter, version]);
 
   const onChangeParameter = useCallback(
     (
@@ -57,6 +65,7 @@ export const ParameterContentPresenter: Presenter<
   return {
     parameter,
     extraParameter,
+    onRoll,
     onChangeParameter,
     onChangeExtraParameter,
   };

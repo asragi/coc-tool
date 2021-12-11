@@ -22,7 +22,7 @@ export interface ParameterMatrixViewProps {
     t: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
-  onRoll?: () => void;
+  onRoll?: (label: ParameterKey) => void;
   onRollAll?: () => void;
 }
 
@@ -76,7 +76,7 @@ export const ParameterMatrixView = ({
             {(Object.keys(parameters) as ParameterKey[]).map(
               (key: ParameterKey) => (
                 <TableCell align='center' key={key} sx={{ padding: 0 }}>
-                  <RollButton onRoll={onRoll} />
+                  <RollButton onRoll={() => onRoll(key)} />
                 </TableCell>
               )
             )}

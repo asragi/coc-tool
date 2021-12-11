@@ -8,6 +8,7 @@ export interface ParameterContentViewProps {
   extraParameter: {
     [key in ExtraParameterKey]: { [key in ParameterType]: number };
   };
+  onRoll: (label: ParameterKey) => void;
   onChangeParameter: (
     key: string,
     type: ParameterType,
@@ -23,13 +24,14 @@ export interface ParameterContentViewProps {
 export const ParameterContentView = ({
   parameter,
   extraParameter,
+  onRoll,
   onChangeParameter,
   onChangeExtraParameter,
 }: ParameterContentViewProps) => {
   return (
     <>
       <ParameterMatrix
-        onRoll={() => {}}
+        onRoll={onRoll}
         params={parameter as ParamSet}
         onChangeParameter={onChangeParameter}
       />
