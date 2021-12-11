@@ -7,7 +7,7 @@ export interface RollButtonViewProps {
 
 export const RollButtonView = ({ text, onRoll }: RollButtonViewProps) => {
   return (
-    <Button onClick={onRoll}>
+    <Button variant='outlined' onClick={onRoll} sx={{ width: '100%' }}>
       <Typography>{text}</Typography>
     </Button>
   );

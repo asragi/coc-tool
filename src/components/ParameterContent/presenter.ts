@@ -28,6 +28,15 @@ export const ParameterContentPresenter: Presenter<
     setParameter(newParameter);
   } , [parameter, version]);
 
+  const onRollAll = useCallback(() => {
+    const newParameter = {...parameter};
+    Object.keys(parameter).forEach((key) => {
+      const label = key as ParameterKey;
+      newParameter[label]['self'] = diceRoll(version, label);
+    });
+    setParameter(newParameter);
+  }, [parameter, version]);
+
   const onChangeParameter = useCallback(
     (
       key: string,
@@ -66,6 +75,7 @@ export const ParameterContentPresenter: Presenter<
     parameter,
     extraParameter,
     onRoll,
+    onRollAll,
     onChangeParameter,
     onChangeExtraParameter,
   };

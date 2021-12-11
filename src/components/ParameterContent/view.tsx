@@ -1,7 +1,9 @@
+import { Stack } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { ExtraParameterKey, ParameterKey, ParameterType } from '../../types';
 import { ParameterMatrix } from '../ParameterMatrix';
 import { ParamSet } from '../ParameterMatrix/presenter';
+import { RollAllButton } from '../RollAllButton';
 
 export interface ParameterContentViewProps {
   parameter: { [key in ParameterKey]: { [key in ParameterType]: number } };
@@ -9,6 +11,7 @@ export interface ParameterContentViewProps {
     [key in ExtraParameterKey]: { [key in ParameterType]: number };
   };
   onRoll: (label: ParameterKey) => void;
+  onRollAll: () => void;
   onChangeParameter: (
     key: string,
     type: ParameterType,
@@ -25,11 +28,13 @@ export const ParameterContentView = ({
   parameter,
   extraParameter,
   onRoll,
+  onRollAll,
   onChangeParameter,
   onChangeExtraParameter,
 }: ParameterContentViewProps) => {
   return (
-    <>
+    <Stack>
+      <RollAllButton onRoll={onRollAll}/>
       <ParameterMatrix
         onRoll={onRoll}
         params={parameter as ParamSet}
@@ -39,6 +44,6 @@ export const ParameterContentView = ({
         params={extraParameter as ParamSet}
         onChangeParameter={onChangeExtraParameter}
       />
-    </>
+    </Stack>
   );
 };
