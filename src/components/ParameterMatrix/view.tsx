@@ -8,29 +8,30 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 import {
-  ExtraParameter6,
-  ParameterKey6,
+  ExtraParameterKey,
+  ParameterKey,
   ParameterType,
   ParameterTypes,
 } from '../../types';
-
-type ParameterKey = ParameterKey6;
 
 type ParameterSet = {
   [key in ParameterKey]: { [key in ParameterType]: number };
 };
 
-type ExtraParameter = ExtraParameter6;
-
 type ExtraParameterSet = {
-  [key in ExtraParameter]: { [key in ParameterType]: number };
+  [key in ExtraParameterKey]: { [key in ParameterType]: number };
 };
 
 export interface ParameterMatrixViewProps {
   parameters: ParameterSet;
   extraParams: ExtraParameterSet;
-  onChange: (
-    key: ParameterKey | ExtraParameter,
+  onChangeParameter: (
+    key: ParameterKey,
+    t: ParameterType,
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
+  onChangeExtraParameter: (
+    key: ExtraParameterKey,
     t: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
@@ -39,7 +40,8 @@ export interface ParameterMatrixViewProps {
 export const ParameterMatrixView = ({
   parameters,
   extraParams,
-  onChange,
+  onChangeParameter,
+  onChangeExtraParameter,
 }: ParameterMatrixViewProps) => {
   const inputStyle = { margin: 0 };
 
@@ -51,15 +53,15 @@ export const ParameterMatrixView = ({
     ));
   };
 
-  const renderCellSet = function <T extends (ParameterKey | ExtraParameter)>(
+  const renderCellSet = (
     values: {
-      [key in T]: {
+      [key in ParameterKey]: {
         [key in ParameterType]: number;
       };
     },
     type: ParameterType
-  ) {
-    const keys = Object.keys(values) as T[];
+  ) => {
+    const keys = Object.keys(values) as ParameterKey[];
 
     return keys.map((key, i) => (
       <TableCell key={`${type}:${i}`} sx={{ padding: 0 }}>
@@ -68,7 +70,30 @@ export const ParameterMatrixView = ({
           inputProps={{ min: 0 }}
           value={values[key][type]}
           sx={inputStyle}
-          onChange={(e) => onChange(key, type, e)}
+          onChange={(e) => onChangeParameter(key, type, e)}
+        />
+      </TableCell>
+    ));
+  };
+
+  const renderExtraCellSet = (
+    values: {
+      [key in ExtraParameterKey]: {
+        [key in ParameterType]: number;
+      };
+    },
+    type: ParameterType
+  ) => {
+    const keys = Object.keys(values) as ExtraParameterKey[];
+
+    return keys.map((key, i) => (
+      <TableCell key={`${type}:${i}`} sx={{ padding: 0 }}>
+        <TextField
+          type='number'
+          inputProps={{ min: 0 }}
+          value={values[key][type]}
+          sx={inputStyle}
+          onChange={(e) => onChangeExtraParameter(key, type, e)}
         />
       </TableCell>
     ));
@@ -89,7 +114,7 @@ export const ParameterMatrixView = ({
             <TableRow key={type}>
               <TableCell>{type}</TableCell>
               {renderCellSet(parameters, type)}
-              {renderCellSet(extraParams, type)}
+              {renderExtraCellSet(extraParams, type)}
             </TableRow>
           );
         })}

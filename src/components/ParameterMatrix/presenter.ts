@@ -1,34 +1,56 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { getUserParameter } from '../../infrastructures/dummy/parameterRepository';
-import { ExtraParameter6, ParameterKey6, ParameterType } from '../../types';
+import {
+  ExtraParameterKey,
+  ParameterKey,
+  ParameterType,
+  Version,
+} from '../../types';
 import { Presenter } from '../../utils/connect';
 import { ParameterMatrixViewProps } from './view';
 
-interface Props {}
-type ParameterKey = ParameterKey6;
-type ExtraParameter = ExtraParameter6;
+interface Props {
+  version: Version;
+}
 
 export const ParameterMatrixPresenter: Presenter<
   Props,
   ParameterMatrixViewProps
-> = ({}: Props) => {
-  const initialParameter = getUserParameter();
+> = ({ version }: Props) => {
+  const initialParameter = getUserParameter(version);
   const [params, setParams] = useState(initialParameter);
 
-  const onChange = useCallback(
+  const onChangeParameter = useCallback(
     (
-      key: ParameterKey | ExtraParameter,
+      key: ParameterKey,
       type: ParameterType,
       e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
       // Clone Object to Invoke setState
-      const afterParams = {...params};
-      // TODO: Implement Change Extra Parameters
+      const afterParams = { ...params };
       const afterNumber = Number(e.target.value);
       if (Number.isNaN(afterNumber)) {
         return;
       }
-      afterParams.parameters[key as ParameterKey6][type] = afterNumber;
+      afterParams.parameters[key][type] = afterNumber;
+      setParams(afterParams);
+    },
+    [params]
+  );
+
+  const onChangeExtraParameter = useCallback(
+    (
+      key: ExtraParameterKey,
+      type: ParameterType,
+      e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) => {
+      // Clone Object to Invoke setState
+      const afterParams = { ...params };
+      const afterNumber = Number(e.target.value);
+      if (Number.isNaN(afterNumber)) {
+        return;
+      }
+      afterParams.extraParams[key][type] = afterNumber;
       setParams(afterParams);
     },
     [params]
@@ -36,6 +58,7 @@ export const ParameterMatrixPresenter: Presenter<
 
   return {
     ...params,
-    onChange,
+    onChangeParameter,
+    onChangeExtraParameter,
   };
 };

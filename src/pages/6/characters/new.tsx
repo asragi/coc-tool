@@ -22,7 +22,7 @@ const Edit: NextPage = () => {
         />
         <CharacterInfo
           headerText='Parameters'
-          innerContent={<ParameterMatrix />}
+          innerContent={<ParameterMatrix version={7} />}
         />
         <CharacterInfo headerText='Skills' innerContent={empty} />
         <CharacterInfo headerText='Battle' innerContent={empty} />
