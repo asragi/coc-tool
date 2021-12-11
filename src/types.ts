@@ -25,5 +25,15 @@ export const ParameterKeys6 = [
   'INC',
 ] as const;
 export type ParameterKey6 = typeof ParameterKeys6[number];
+export const ExtraParameters6 = [
+  'HP',
+  'MP',
+  'SAN',
+  'IDE',
+  'LUK',
+  'KNOW',
+] as const;
+export type ExtraParameter6 = typeof ExtraParameters6[number];
+
 export const ParameterTypes = ['self', 'mod', 'tmp'] as const;
 export type ParameterType = typeof ParameterTypes[number];
