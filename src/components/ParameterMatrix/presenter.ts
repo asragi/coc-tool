@@ -1,45 +1,34 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { getUserParameter } from '../../infrastructures/dummy/parameterRepository';
-import {
-  ExtraParameterKey,
-  ParameterKey,
-  ParameterType,
-  Version,
-} from '../../types';
+import { ExtraParameterKey, ParameterKey, ParameterType } from '../../types';
 import { Presenter } from '../../utils/connect';
 import { ParameterMatrixViewProps } from './view';
 
+export type ParamSet = {
+  [key in ParameterKey | ExtraParameterKey]: {
+    [key in ParameterType]: number;
+  };
+};
+
 interface Props {
-  version: Version;
+  params: ParamSet;
+  onRoll?: () => void;
+  onRollAll?: () => void;
+  onChangeParameter: (
+    key: string,
+    type: ParameterType,
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 export const ParameterMatrixPresenter: Presenter<
   Props,
   ParameterMatrixViewProps
-> = ({ version }: Props) => {
-  const initialParameter = getUserParameter(version);
-  const [params, setParams] = useState(initialParameter);
-
-  const onChangeParameter = useCallback(
-    (
-      key: ParameterKey,
-      type: ParameterType,
-      e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => {
-      // Clone Object to Invoke setState
-      const afterParams = { ...params };
-      const afterNumber = Number(e.target.value);
-      if (Number.isNaN(afterNumber)) {
-        return;
-      }
-      afterParams[key][type] = afterNumber;
-      setParams(afterParams);
-    },
-    [params]
-  );
-
+> = ({ params, onRoll, onRollAll, onChangeParameter }: Props) => {
   return {
     parameters: params,
+    onRoll,
+    onRollAll,
     onChangeParameter,
   };
 };

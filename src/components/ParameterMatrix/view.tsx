@@ -22,11 +22,15 @@ export interface ParameterMatrixViewProps {
     t: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+  onRoll?: () => void;
+  onRollAll?: () => void;
 }
 
 export const ParameterMatrixView = ({
   parameters,
   onChangeParameter,
+  onRoll,
+  onRollAll,
 }: ParameterMatrixViewProps) => {
   const inputStyle = { margin: 0 };
 
@@ -66,16 +70,18 @@ export const ParameterMatrixView = ({
   return (
     <TableContainer component='table'>
       <TableHead>
-        <TableRow>
-          <TableCell />
-          {(Object.keys(parameters) as ParameterKey[]).map(
-            (key: ParameterKey) => (
-              <TableCell align='center' key={key} sx={{ padding: 0 }}>
-                <RollButton onRoll={() => {}} />
-              </TableCell>
-            )
-          )}
-        </TableRow>
+        {!!onRoll && (
+          <TableRow>
+            <TableCell />
+            {(Object.keys(parameters) as ParameterKey[]).map(
+              (key: ParameterKey) => (
+                <TableCell align='center' key={key} sx={{ padding: 0 }}>
+                  <RollButton onRoll={onRoll} />
+                </TableCell>
+              )
+            )}
+          </TableRow>
+        )}
         <TableRow>
           <TableCell />
           {renderHeader(parameters)}
