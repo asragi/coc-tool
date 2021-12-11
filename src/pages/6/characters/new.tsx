@@ -7,7 +7,7 @@ import Link from '../../../components/Link';
 import { Stack } from '@mui/material';
 import { CharacterInfo } from '../../../components/CharacterInfo';
 import { BasicInfoContent } from '../../../components/BasicInfoContent';
-import { ParameterMatrix } from '../../../components/ParameterMatrix';
+import { ParameterContent } from '../../../components/ParameterContent';
 
 const Edit: NextPage = () => {
   const empty = <div>Empty</div>;
@@ -22,7 +22,7 @@ const Edit: NextPage = () => {
         />
         <CharacterInfo
           headerText='Parameters'
-          innerContent={<ParameterMatrix version={6} />}
+          innerContent={<ParameterContent version={6} />}
         />
         <CharacterInfo headerText='Skills' innerContent={empty} />
         <CharacterInfo headerText='Battle' innerContent={empty} />
