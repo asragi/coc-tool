@@ -50,9 +50,7 @@ export const ExtraParameters7 = [
   'MP',
   'SAN',
   'IDA',
-  'MOV',
   'KNOW',
-  'BLD',
 ] as const;
 export type ExtraParameter7 = typeof ExtraParameters7[number];
 export type ExtraParameterKey = ExtraParameter6 | ExtraParameter7;

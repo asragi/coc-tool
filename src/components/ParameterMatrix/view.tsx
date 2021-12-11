@@ -55,10 +55,10 @@ export const ParameterMatrixView = ({
     const keys = Object.keys(values) as ParameterKey[];
 
     return keys.map((key, i) => (
-      <TableCell key={`${type}:${i}`} sx={{ padding: 0 }}>
+      <TableCell key={`${type}:${i}`} sx={{ padding: 0 }} align='center'>
         <TextField
           type='number'
-          inputProps={{ min: 0 }}
+          inputProps={{ min: 0, style: { textAlign: 'right' } }}
           value={values[key][type]}
           sx={inputStyle}
           onChange={(e) => onChangeParameter(key, type, e)}

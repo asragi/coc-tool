@@ -31,8 +31,6 @@ export const getUserExtraParameter = (version: Version) => {
     SAN: { self: 24, mod: 0, tmp: 0 },
     IDA: { self: 25, mod: 0, tmp: 0 },
     KNOW: { self: 27, mod: 0, tmp: 0 },
-    MOV: { self: 28, mod: 0, tmp: 1 },
-    BLD: { self: 29, mod: 0, tmp: 2 },
   } as extraParameter;
 };
 
