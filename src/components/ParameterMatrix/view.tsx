@@ -92,6 +92,7 @@ export const ParameterMatrixView = ({
           type='number'
           inputProps={{ min: 0 }}
           value={values[key][type]}
+          disabled={type === 'self'}
           sx={inputStyle}
           onChange={(e) => onChangeExtraParameter(key, type, e)}
         />
