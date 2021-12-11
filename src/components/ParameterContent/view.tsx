@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { ExtraParameterKey, ParameterKey, ParameterType } from '../../types';
 import { ParameterMatrix } from '../ParameterMatrix';
 import { ParamSet } from '../ParameterMatrix/presenter';
@@ -7,8 +8,16 @@ export interface ParameterContentViewProps {
   extraParameter: {
     [key in ExtraParameterKey]: { [key in ParameterType]: number };
   };
-  onChangeParameter: () => void;
-  onChangeExtraParameter: () => void;
+  onChangeParameter: (
+    key: string,
+    type: ParameterType,
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
+  onChangeExtraParameter: (
+    key: string,
+    type: ParameterType,
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 export const ParameterContentView = ({

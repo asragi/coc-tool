@@ -1,8 +1,5 @@
-import { ChangeEvent, useCallback, useState } from 'react';
-import { getUserParameter } from '../../infrastructures/dummy/parameterRepository';
+import { ChangeEvent } from 'react';
 import { ExtraParameterKey, ParameterKey, ParameterType } from '../../types';
-import { Presenter } from '../../utils/connect';
-import { ParameterMatrixViewProps } from './view';
 
 export type ParamSet = {
   [key in ParameterKey | ExtraParameterKey]: {
@@ -10,21 +7,25 @@ export type ParamSet = {
   };
 };
 
+type SomeParameter = ParameterKey | ExtraParameterKey;
+
 interface Props {
   params: ParamSet;
   onRoll?: () => void;
   onRollAll?: () => void;
   onChangeParameter: (
-    key: string,
+    key: SomeParameter,
     type: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
 }
 
-export const ParameterMatrixPresenter: Presenter<
-  Props,
-  ParameterMatrixViewProps
-> = ({ params, onRoll, onRollAll, onChangeParameter }: Props) => {
+export const ParameterMatrixPresenter = ({
+  params,
+  onRoll,
+  onRollAll,
+  onChangeParameter,
+}: Props) => {
   return {
     parameters: params,
     onRoll,
