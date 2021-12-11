@@ -32,33 +32,14 @@ export const ParameterMatrixPresenter: Presenter<
       if (Number.isNaN(afterNumber)) {
         return;
       }
-      afterParams.parameters[key][type] = afterNumber;
-      setParams(afterParams);
-    },
-    [params]
-  );
-
-  const onChangeExtraParameter = useCallback(
-    (
-      key: ExtraParameterKey,
-      type: ParameterType,
-      e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => {
-      // Clone Object to Invoke setState
-      const afterParams = { ...params };
-      const afterNumber = Number(e.target.value);
-      if (Number.isNaN(afterNumber)) {
-        return;
-      }
-      afterParams.extraParams[key][type] = afterNumber;
+      afterParams[key][type] = afterNumber;
       setParams(afterParams);
     },
     [params]
   );
 
   return {
-    ...params,
+    parameters: params,
     onChangeParameter,
-    onChangeExtraParameter,
   };
 };
