@@ -1,8 +1,10 @@
 import { ChangeEvent } from 'react';
-import { ExtraParameterKey, ParameterKey, ParameterType } from '../../types';
+import { ExtraParameterKey, ParameterKey, ParameterType, ParameterTypes } from '../../types';
+import { Presenter } from '../../utils/connect';
+import { ParameterMatrixViewProps } from './view';
 
 export type ParamSet = {
-  [key in ParameterKey | ExtraParameterKey]: {
+  [key in SomeParameter]: {
     [key in ParameterType]: number;
   };
 };
@@ -19,13 +21,21 @@ interface Props {
   ) => void;
 }
 
-export const ParameterMatrixPresenter = ({
-  params,
-  onRoll,
-  onChangeParameter,
-}: Props) => {
-  return {
+export const ParameterMatrixPresenter: Presenter<
+  Props,
+  ParameterMatrixViewProps
+> = ({ params, onRoll, onChangeParameter }: Props) => {
+  const paramSum: { [key: string]: number } = {};
+  (Object.keys(params) as SomeParameter[]).forEach(key => {
+    paramSum[key] = 0;
+    ParameterTypes.forEach(t => {
+      paramSum[key] += params[key][t];
+    });
+  });
+  
+return {
     parameters: params,
+    paramSum: paramSum as { [key in SomeParameter]: number},
     onRoll,
     onChangeParameter,
   };

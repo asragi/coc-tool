@@ -17,6 +17,7 @@ type ParameterSet = {
 
 export interface ParameterMatrixViewProps {
   parameters: ParameterSet;
+  paramSum: { [key in ParameterKey]: number };
   onChangeParameter: (
     key: ParameterKey,
     t: ParameterType,
@@ -27,6 +28,7 @@ export interface ParameterMatrixViewProps {
 
 export const ParameterMatrixView = ({
   parameters,
+  paramSum,
   onChangeParameter,
   onRoll,
 }: ParameterMatrixViewProps) => {
@@ -65,6 +67,21 @@ export const ParameterMatrixView = ({
     ));
   };
 
+  const renderSum = (params: { [key in ParameterKey]: number }) => {
+    return (Object.keys(params) as ParameterKey[]).map((key: ParameterKey) => (
+      <TableCell key={`${key}-sum`} sx={{ padding: 0 }} align='right'>
+        <TextField
+          type='number'
+          inputProps={{
+            min: 0, style: { textAlign: 'right', cursor: 'not-allowed' } }}
+          value={params[key]}
+          sx={inputStyle}
+          disabled
+        />
+      </TableCell>
+    ));
+  };
+
   return (
     <TableContainer component='table'>
       <TableHead>
@@ -94,6 +111,10 @@ export const ParameterMatrixView = ({
             </TableRow>
           );
         })}
+        <TableRow>
+          <TableCell>{'合計'}</TableCell>
+          {renderSum(paramSum)}
+        </TableRow>
       </TableBody>
     </TableContainer>
   );

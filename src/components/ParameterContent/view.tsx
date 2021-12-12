@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { ExtraParameterKey, ParameterKey, ParameterType } from '../../types';
 import { ParameterMatrix } from '../ParameterMatrix';
@@ -33,13 +33,14 @@ export const ParameterContentView = ({
   onChangeExtraParameter,
 }: ParameterContentViewProps) => {
   return (
-    <Stack>
-      <RollAllButton onRoll={onRollAll}/>
+    <Stack sx={{ mb: 4 }}>
+      <RollAllButton onRoll={onRollAll} />
       <ParameterMatrix
         onRoll={onRoll}
         params={parameter as ParamSet}
         onChangeParameter={onChangeParameter}
       />
+      <Divider sx={{ mt: 2 }}>{'自動決定パラメータ'}</Divider>
       <ParameterMatrix
         params={extraParameter as ParamSet}
         onChangeParameter={onChangeExtraParameter}
