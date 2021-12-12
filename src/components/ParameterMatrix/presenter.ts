@@ -12,7 +12,6 @@ type SomeParameter = ParameterKey | ExtraParameterKey;
 interface Props {
   params: ParamSet;
   onRoll?: (label: ParameterKey) => void;
-  onRollAll?: () => void;
   onChangeParameter: (
     key: SomeParameter,
     type: ParameterType,
@@ -23,13 +22,11 @@ interface Props {
 export const ParameterMatrixPresenter = ({
   params,
   onRoll,
-  onRollAll,
   onChangeParameter,
 }: Props) => {
   return {
     parameters: params,
     onRoll,
-    onRollAll,
     onChangeParameter,
   };
 };

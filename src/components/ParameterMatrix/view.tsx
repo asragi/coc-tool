@@ -23,14 +23,12 @@ export interface ParameterMatrixViewProps {
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   onRoll?: (label: ParameterKey) => void;
-  onRollAll?: () => void;
 }
 
 export const ParameterMatrixView = ({
   parameters,
   onChangeParameter,
   onRoll,
-  onRollAll,
 }: ParameterMatrixViewProps) => {
   const inputStyle = { margin: 0 };
 
