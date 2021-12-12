@@ -17,7 +17,7 @@ export const CharacterInfoView = ({
   innerContent,
 }: CharacterInfoViewProps) => {
   return (
-    <Accordion>
+    <Accordion defaultExpanded={true} disableGutters>
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls='panel1a-content'
