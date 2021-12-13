@@ -3,7 +3,14 @@ import {
   getUserExtraParameter,
   getUserParameter,
 } from '../../infrastructures/dummy/parameterRepository';
-import { ExtraParameterKey, ParameterKey, ParameterType, Version } from '../../types';
+import {
+  ExtraParameterKey,
+  ParameterKey,
+  ParameterType,
+  ParameterTypes,
+  SomeParameter,
+  Version,
+} from '../../types';
 import { Presenter } from '../../utils/connect';
 import { diceRoll } from '../../utils/diceRoll';
 import { ParameterContentViewProps } from './view';
@@ -12,6 +19,20 @@ interface Props {
   version: Version;
 }
 
+type CalcSumArg = { [key in SomeParameter]: {[key in ParameterType]: number}}
+
+const CalcSum = (parameter: CalcSumArg) => {
+  const paramSum: { [key: string]: number } = {};
+  (Object.keys(parameter) as SomeParameter[]).forEach((key) => {
+    paramSum[key] = 0;
+    ParameterTypes.forEach((t) => {
+      paramSum[key] += parameter[key][t];
+    });
+  });
+
+  return paramSum as { [key in SomeParameter]: number };
+};
+
 export const ParameterContentPresenter: Presenter<
   Props,
   ParameterContentViewProps
@@ -19,23 +40,35 @@ export const ParameterContentPresenter: Presenter<
   const initialParameter = getUserParameter(version);
   const initialExtraParameter = getUserExtraParameter(version);
   const [parameter, setParameter] = useState(initialParameter);
+  const [parameterSum, setParameterSum] = useState(CalcSum(parameter as CalcSumArg));
   const [extraParameter, setExtraParameter] = useState(initialExtraParameter);
+  const [extraParameterSum, setExtraParameterSum] = useState(CalcSum(extraParameter as CalcSumArg));
 
-  const onRoll = useCallback((label: ParameterKey) => {
-    const afterValue = diceRoll(version, label);
-    const newParameter = {...parameter};
-    newParameter[label]['self'] = afterValue;
-    setParameter(newParameter);
-  } , [parameter, version]);
+  const onRefreshParameter = useCallback(() => {
+    setParameterSum(CalcSum(parameter as CalcSumArg));
+    setExtraParameterSum(CalcSum(extraParameter as CalcSumArg));
+  },[parameter, extraParameter]);
+
+  const onRoll = useCallback(
+    (label: ParameterKey) => {
+      const afterValue = diceRoll(version, label);
+      const newParameter = { ...parameter };
+      newParameter[label]['self'] = afterValue;
+      setParameter(newParameter);
+      onRefreshParameter();
+    },
+    [parameter, version, onRefreshParameter]
+  );
 
   const onRollAll = useCallback(() => {
-    const newParameter = {...parameter};
+    const newParameter = { ...parameter };
     Object.keys(parameter).forEach((key) => {
       const label = key as ParameterKey;
       newParameter[label]['self'] = diceRoll(version, label);
     });
     setParameter(newParameter);
-  }, [parameter, version]);
+    onRefreshParameter();
+  }, [parameter, version, onRefreshParameter]);
 
   const onChangeParameter = useCallback(
     (
@@ -43,15 +76,16 @@ export const ParameterContentPresenter: Presenter<
       type: ParameterType,
       e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
-      const newParameter = {...parameter};
+      const newParameter = { ...parameter };
       const afterValue = Number(e.target.value);
       if (Number.isNaN(afterValue)) {
         return;
       }
       newParameter[key as ParameterKey][type] = afterValue;
       setParameter(newParameter);
+      onRefreshParameter();
     },
-    [parameter]
+    [parameter, onRefreshParameter]
   );
 
   const onChangeExtraParameter = useCallback(
@@ -60,20 +94,23 @@ export const ParameterContentPresenter: Presenter<
       type: ParameterType,
       e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
-      const newParameter = {...extraParameter};
+      const newParameter = { ...extraParameter };
       const afterValue = Number(e.target.value);
       if (Number.isNaN(afterValue)) {
         return;
       }
       newParameter[key as ExtraParameterKey][type] = afterValue;
       setExtraParameter(newParameter);
+      onRefreshParameter();
     },
-    [extraParameter]
+    [extraParameter, onRefreshParameter]
   );
 
   return {
     parameter,
+    parameterSum,
     extraParameter,
+    extraParameterSum,
     onRoll,
     onRollAll,
     onChangeParameter,

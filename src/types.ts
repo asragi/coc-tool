@@ -45,15 +45,14 @@ export const ExtraParameters6 = [
   'KNOW',
 ] as const;
 export type ExtraParameter6 = typeof ExtraParameters6[number];
-export const ExtraParameters7 = [
-  'HP',
-  'MP',
-  'SAN',
-  'IDA',
-  'KNOW',
-] as const;
+export const ExtraParameters7 = ['HP', 'MP', 'SAN', 'IDA', 'KNOW'] as const;
 export type ExtraParameter7 = typeof ExtraParameters7[number];
 export type ExtraParameterKey = ExtraParameter6 | ExtraParameter7;
 
 export const ParameterTypes = ['self', 'mod', 'tmp'] as const;
 export type ParameterType = typeof ParameterTypes[number];
+
+export type SomeParameter = ParameterKey | ExtraParameterKey;
+export type ParameterSet = {
+  [key in SomeParameter]: { [key in ParameterType]: number };
+};

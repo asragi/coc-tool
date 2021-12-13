@@ -58,7 +58,7 @@ export const ParameterMatrixView = ({
       <TableCell key={`${type}:${i}`} sx={{ padding: 0 }} align='center'>
         <TextField
           type='number'
-          inputProps={{ min: 0, style: { textAlign: 'right' } }}
+          inputProps={{ style: { textAlign: 'right' } }}
           value={values[key][type]}
           sx={inputStyle}
           onChange={(e) => onChangeParameter(key, type, e)}
