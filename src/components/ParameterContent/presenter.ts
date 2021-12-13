@@ -12,6 +12,7 @@ import {
   Version,
 } from '../../types';
 import { Presenter } from '../../utils/connect';
+import { decideExtraParameter } from '../../utils/decideExtraParameter';
 import { diceRoll } from '../../utils/diceRoll';
 import { ParameterContentViewProps } from './view';
 
@@ -19,7 +20,9 @@ interface Props {
   version: Version;
 }
 
-type CalcSumArg = { [key in SomeParameter]: {[key in ParameterType]: number}}
+type CalcSumArg = {
+  [key in SomeParameter]: { [key in ParameterType]: number };
+};
 
 const CalcSum = (parameter: CalcSumArg) => {
   const paramSum: { [key: string]: number } = {};
@@ -40,14 +43,32 @@ export const ParameterContentPresenter: Presenter<
   const initialParameter = getUserParameter(version);
   const initialExtraParameter = getUserExtraParameter(version);
   const [parameter, setParameter] = useState(initialParameter);
-  const [parameterSum, setParameterSum] = useState(CalcSum(parameter as CalcSumArg));
+  const [parameterSum, setParameterSum] = useState(
+    CalcSum(parameter as CalcSumArg)
+  );
   const [extraParameter, setExtraParameter] = useState(initialExtraParameter);
-  const [extraParameterSum, setExtraParameterSum] = useState(CalcSum(extraParameter as CalcSumArg));
+  const [extraParameterSum, setExtraParameterSum] = useState(
+    CalcSum(extraParameter as CalcSumArg)
+  );
 
   const onRefreshParameter = useCallback(() => {
-    setParameterSum(CalcSum(parameter as CalcSumArg));
+    const updateExtraParam = (_afterParamSum: {
+      [key in ParameterKey]: number;
+    }) => {
+      const afterParameter = { ...extraParameter };
+      (Object.keys(extraParameter) as ExtraParameterKey[]).forEach((key) => {
+        afterParameter[key]['self'] = decideExtraParameter(
+          key,
+          version,
+          _afterParamSum
+        );
+      });
+    };
+    const afterParamSum = CalcSum(parameter as CalcSumArg);
+    setParameterSum(afterParamSum);
+    updateExtraParam(afterParamSum);
     setExtraParameterSum(CalcSum(extraParameter as CalcSumArg));
-  },[parameter, extraParameter]);
+  }, [parameter, extraParameter, version]);
 
   const onRoll = useCallback(
     (label: ParameterKey) => {

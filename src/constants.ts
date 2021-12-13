@@ -40,3 +40,4 @@ export const DICE_PATTERN7: {
   EDU: { d: 2, pls: 6 },
   LUK: { d: 3, pls: 0 },
 };
+
