@@ -24,6 +24,7 @@ export interface ParameterMatrixViewProps {
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   onRoll?: (label: ParameterKey) => void;
+  enableSelfParameter?: boolean;
 }
 
 export const ParameterMatrixView = ({
@@ -31,6 +32,7 @@ export const ParameterMatrixView = ({
   paramSum,
   onChangeParameter,
   onRoll,
+  enableSelfParameter,
 }: ParameterMatrixViewProps) => {
   const inputStyle = { margin: 0 };
 
@@ -54,17 +56,23 @@ export const ParameterMatrixView = ({
   ) => {
     const keys = Object.keys(values) as ParameterKey[];
 
-    return keys.map((key, i) => (
-      <TableCell key={`${type}:${i}`} sx={{ padding: 0 }} align='center'>
-        <TextField
-          type='number'
-          inputProps={{ style: { textAlign: 'right' } }}
-          value={values[key][type]}
-          sx={inputStyle}
-          onChange={(e) => onChangeParameter(key, type, e)}
-        />
-      </TableCell>
-    ));
+    return keys.map((key, i) => {
+      const disable = !enableSelfParameter && type === 'self';
+      const disableCursor = disable ? 'not-allowed' : 'inherit';
+
+      return (
+        <TableCell key={`${type}:${i}`} sx={{ padding: 0 }} align='center'>
+          <TextField
+            type='number'
+            inputProps={{ style: { textAlign: 'right', cursor: disableCursor } }}
+            value={values[key][type]}
+            sx={inputStyle}
+            onChange={(e) => onChangeParameter(key, type, e)}
+            disabled={!enableSelfParameter && type === 'self'}
+          />
+        </TableCell>
+      );
+    });
   };
 
   const renderSum = (params: { [key in ParameterKey]: number }) => {
@@ -73,7 +81,9 @@ export const ParameterMatrixView = ({
         <TextField
           type='number'
           inputProps={{
-            min: 0, style: { textAlign: 'right', cursor: 'not-allowed' } }}
+            min: 0,
+            style: { textAlign: 'right', cursor: 'not-allowed' },
+          }}
           value={params[key]}
           sx={inputStyle}
           disabled

@@ -49,6 +49,7 @@ export const ParameterContentView = ({
         params={parameter as ParamSet}
         paramSum={parameterSum as { [key in SomeParameter]: number }}
         onChangeParameter={onChangeParameter}
+        enableSelfParameter
       />
       <Divider sx={{ mt: 2 }}>
         <Typography>{'自動決定パラメータ'}</Typography>

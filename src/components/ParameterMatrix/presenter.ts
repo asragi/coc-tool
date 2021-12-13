@@ -20,16 +20,24 @@ interface Props {
     type: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+  enableSelfParameter?: boolean;
 }
 
 export const ParameterMatrixPresenter: Presenter<
   Props,
   ParameterMatrixViewProps
-> = ({ params, paramSum, onRoll, onChangeParameter }: Props) => {
+> = ({
+  params,
+  paramSum,
+  onRoll,
+  onChangeParameter,
+  enableSelfParameter,
+}: Props) => {
   return {
     parameters: params,
     paramSum,
     onRoll,
     onChangeParameter,
+    enableSelfParameter,
   };
 };
