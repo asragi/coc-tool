@@ -50,6 +50,7 @@ export const ParameterContentPresenter: Presenter<
   const [extraParameterSum, setExtraParameterSum] = useState(
     CalcSum(extraParameter as CalcSumArg)
   );
+  const [currentSan, setCurrentSan] = useState(50);
 
   const onRefreshParameter = useCallback(() => {
     const updateExtraParam = (_afterParamSum: {
@@ -136,5 +137,6 @@ export const ParameterContentPresenter: Presenter<
     onRollAll,
     onChangeParameter,
     onChangeExtraParameter,
+    currentSan,
   };
 };

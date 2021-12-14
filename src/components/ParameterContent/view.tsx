@@ -10,6 +10,7 @@ import { CalculationResult } from '../CalculationResult';
 import { ParameterMatrix } from '../ParameterMatrix';
 import { ParamSet } from '../ParameterMatrix/presenter';
 import { RollAllButton } from '../RollAllButton';
+import { SanDisplay } from '../SanDisplay';
 
 export interface ParameterContentViewProps {
   parameter: { [key in ParameterKey]: { [key in ParameterType]: number } };
@@ -30,6 +31,7 @@ export interface ParameterContentViewProps {
     type: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+  currentSan: number;
 }
 
 export const ParameterContentView = ({
@@ -41,6 +43,7 @@ export const ParameterContentView = ({
   onRollAll,
   onChangeParameter,
   onChangeExtraParameter,
+  currentSan,
 }: ParameterContentViewProps) => {
   return (
     <Stack sx={{ mb: 4 }}>
@@ -60,6 +63,7 @@ export const ParameterContentView = ({
         paramSum={extraParameterSum as { [key in SomeParameter]: number }}
         onChangeParameter={onChangeExtraParameter}
       />
+      <SanDisplay currentSan={currentSan}/>
       <CalculationResult
         str={parameterSum.STR}
         siz={parameterSum.SIZ}
