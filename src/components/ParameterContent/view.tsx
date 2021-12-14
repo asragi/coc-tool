@@ -63,11 +63,11 @@ export const ParameterContentView = ({
         paramSum={extraParameterSum as { [key in SomeParameter]: number }}
         onChangeParameter={onChangeExtraParameter}
       />
-      <SanDisplay currentSan={currentSan}/>
-      <CalculationResult
-        str={parameterSum.STR}
-        siz={parameterSum.SIZ}
-      />
+      <Stack direction='row' justifyContent='flex-end' sx={{ mt: 4 }}>
+        <SanDisplay currentSan={currentSan} />
+        <Divider orientation='vertical' flexItem variant='middle' sx={{m:1}}/>
+        <CalculationResult str={parameterSum.STR} siz={parameterSum.SIZ} />
+      </Stack>
     </Stack>
   );
 };

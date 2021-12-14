@@ -14,9 +14,20 @@ export const SanDisplayView = ({
   indefiniteLabel,
 }: SanDisplayViewProps) => {
   return (
-    <Stack direction='row'>
-      <TextField value={currentSan} label={currentSanLabel} />
-      <TextField value={indefiniteValue} label={indefiniteLabel} />
+    <Stack direction='row' spacing={1}>
+      <TextField
+        value={currentSan}
+        label={currentSanLabel}
+        type='number'
+        inputProps={{ style: { textAlign: 'right' } }}
+      />
+      <TextField
+        value={indefiniteValue}
+        label={indefiniteLabel}
+        type='number'
+        disabled
+        inputProps={{ style: { textAlign: 'right', cursor: 'not-allowed' } }}
+      />
     </Stack>
   );
 };
