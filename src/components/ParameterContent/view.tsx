@@ -6,6 +6,7 @@ import {
   ParameterType,
   SomeParameter,
 } from '../../types';
+import { CalculationResult } from '../CalculationResult';
 import { ParameterMatrix } from '../ParameterMatrix';
 import { ParamSet } from '../ParameterMatrix/presenter';
 import { RollAllButton } from '../RollAllButton';
@@ -58,6 +59,10 @@ export const ParameterContentView = ({
         params={extraParameter as ParamSet}
         paramSum={extraParameterSum as { [key in SomeParameter]: number }}
         onChangeParameter={onChangeExtraParameter}
+      />
+      <CalculationResult
+        str={parameterSum.STR}
+        siz={parameterSum.SIZ}
       />
     </Stack>
   );
