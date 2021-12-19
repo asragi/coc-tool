@@ -8,6 +8,7 @@ import { Stack } from '@mui/material';
 import { CharacterInfo } from '../../../components/CharacterInfo';
 import { BasicInfoContent } from '../../../components/BasicInfoContent';
 import { ParameterContent } from '../../../components/ParameterContent';
+import { SkillContent } from '../../../components/Skill/SkillContent';
 
 const Edit: NextPage = () => {
   const empty = <div>Empty</div>;
@@ -24,7 +25,7 @@ const Edit: NextPage = () => {
           headerText='Parameters'
           innerContent={<ParameterContent version={6} />}
         />
-        <CharacterInfo headerText='Skills' innerContent={empty} />
+        <CharacterInfo headerText='Skills' innerContent={<SkillContent />} />
         <CharacterInfo headerText='Battle' innerContent={empty} />
       </Stack>
       <Box
