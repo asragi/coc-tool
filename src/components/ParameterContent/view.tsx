@@ -32,6 +32,9 @@ export interface ParameterContentViewProps {
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   currentSan: number;
+  onChangeCurrentSan: (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 export const ParameterContentView = ({
@@ -44,6 +47,7 @@ export const ParameterContentView = ({
   onChangeParameter,
   onChangeExtraParameter,
   currentSan,
+  onChangeCurrentSan,
 }: ParameterContentViewProps) => {
   return (
     <Stack sx={{ mb: 4 }}>
@@ -64,8 +68,16 @@ export const ParameterContentView = ({
         onChangeParameter={onChangeExtraParameter}
       />
       <Stack direction='row' justifyContent='flex-end' sx={{ mt: 4 }}>
-        <SanDisplay currentSan={currentSan} />
-        <Divider orientation='vertical' flexItem variant='middle' sx={{m:1}}/>
+        <SanDisplay
+          currentSan={currentSan}
+          onChangeCurrentSan={onChangeCurrentSan}
+        />
+        <Divider
+          orientation='vertical'
+          flexItem
+          variant='middle'
+          sx={{ m: 1 }}
+        />
         <CalculationResult str={parameterSum.STR} siz={parameterSum.SIZ} />
       </Stack>
     </Stack>
