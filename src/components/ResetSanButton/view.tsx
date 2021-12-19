@@ -9,5 +9,9 @@ export const ResetSanButtonView = ({
   onClick,
   text,
 }: ResetSanButtonViewProps) => {
-  return <Button onClick={onClick}>{text}</Button>;
+  return (
+    <Button variant='contained' sx={{ mr: 1 }} onClick={onClick}>
+      {text}
+    </Button>
+  );
 };
