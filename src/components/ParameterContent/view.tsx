@@ -9,6 +9,7 @@ import {
 import { CalculationResult } from '../CalculationResult';
 import { ParameterMatrix } from '../ParameterMatrix';
 import { ParamSet } from '../ParameterMatrix/presenter';
+import { ResetSanButton } from '../ResetSanButton';
 import { RollAllButton } from '../RollAllButton';
 import { SanDisplay } from '../SanDisplay';
 
@@ -31,6 +32,7 @@ export interface ParameterContentViewProps {
     type: ParameterType,
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+  onResetSan: () => void;
   currentSan: number;
   onChangeCurrentSan: (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -46,6 +48,7 @@ export const ParameterContentView = ({
   onRollAll,
   onChangeParameter,
   onChangeExtraParameter,
+  onResetSan,
   currentSan,
   onChangeCurrentSan,
 }: ParameterContentViewProps) => {
@@ -68,6 +71,7 @@ export const ParameterContentView = ({
         onChangeParameter={onChangeExtraParameter}
       />
       <Stack direction='row' justifyContent='flex-end' sx={{ mt: 4 }}>
+        <ResetSanButton onClick={onResetSan} />
         <SanDisplay
           currentSan={currentSan}
           onChangeCurrentSan={onChangeCurrentSan}

@@ -128,6 +128,10 @@ export const ParameterContentPresenter: Presenter<
     [extraParameter, onRefreshParameter]
   );
 
+  const onResetSan = useCallback(() => {
+    setCurrentSan(extraParameterSum.SAN);
+  },[extraParameterSum.SAN]);
+
   const onChangeCurrentSan = useCallback((e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const afterValue = Number(e.target.value);
     if (Number.isNaN(afterValue)) {
@@ -145,6 +149,7 @@ export const ParameterContentPresenter: Presenter<
     onRollAll,
     onChangeParameter,
     onChangeExtraParameter,
+    onResetSan,
     currentSan,
     onChangeCurrentSan,
   };
