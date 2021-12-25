@@ -61,8 +61,8 @@ export type ParameterSet = {
 
 export const SkillLabels = [
   'initial',
-  'job',
-  'interest',
+  'jobPoint',
+  'interestPoint',
   'mod',
   'tmp',
   'growth',
