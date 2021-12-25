@@ -56,3 +56,16 @@ export type SomeParameter = ParameterKey | ExtraParameterKey;
 export type ParameterSet = {
   [key in SomeParameter]: { [key in ParameterType]: number };
 };
+
+// Skill
+
+export const SkillLabels = [
+  'initial',
+  'job',
+  'interest',
+  'mod',
+  'tmp',
+  'growth',
+] as const;
+export type SkillLabel = typeof SkillLabels[number];
+export type SkillRow = SkillLabel | 'text';

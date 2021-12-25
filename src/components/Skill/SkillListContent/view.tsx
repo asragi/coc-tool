@@ -1,22 +1,37 @@
-import { TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
+import { SkillRow } from '../../../types';
 
 export interface SkillListContentViewProps {
-  skillList: { text: string; value: number }[];
+  header: string[];
+  skillList: { [key in SkillRow]: number }[];
 }
 
 export const SkillListContentView = ({
+  header,
   skillList,
 }: SkillListContentViewProps) => {
-  return <TableContainer component='table'>
-    <TableHead>
-      <TableRow>
-        <TableCell>技能</TableCell>
-        <TableCell>初期</TableCell>
-        <TableCell>修正</TableCell>
-        <TableCell>一時</TableCell>
-        <TableCell>成長</TableCell>
-        <TableCell>合計</TableCell>
-      </TableRow>
-    </TableHead>
-  </TableContainer>;
+  return (
+    <TableContainer component='table'>
+      <TableHead>
+        <TableRow>
+          {header.map((label) => (
+            <TableCell key={label}>{label}</TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {skillList.map((skill) => (
+          <TableRow key={skill.text}>
+            <TableCell>{skill.text}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </TableContainer>
+  );
 };

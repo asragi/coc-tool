@@ -7,7 +7,10 @@ export const SkillListContentPresenter: Presenter<
   Props,
   SkillListContentViewProps
 > = ({}: Props) => {
+  const header = ['技能'];
+
   return {
+    header,
     skillList: [],
   };
 };
