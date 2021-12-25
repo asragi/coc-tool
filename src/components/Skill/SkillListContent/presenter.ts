@@ -1,3 +1,4 @@
+import { getSkill } from '../../../infrastructures/dummy/skillrepository';
 import { Presenter } from '../../../utils/connect';
 import { SkillListContentViewProps } from './view';
 
@@ -8,9 +9,10 @@ export const SkillListContentPresenter: Presenter<
   SkillListContentViewProps
 > = ({}: Props) => {
   const header = ['技能'];
+  const skillList = getSkill();
 
   return {
     header,
-    skillList: [],
+    skillList,
   };
 };

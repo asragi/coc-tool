@@ -59,13 +59,12 @@ export type ParameterSet = {
 
 // Skill
 
-export const SkillLabels = [
-  'initial',
-  'jobPoint',
-  'interestPoint',
-  'mod',
-  'tmp',
-  'growth',
-] as const;
-export type SkillLabel = typeof SkillLabels[number];
-export type SkillRow = SkillLabel | 'text';
+export type SkillRow = {
+  label: string;
+  initial: number;
+  jobPoint: number;
+  interestPoint: number;
+  mod: number;
+  tmp: number;
+  growth: number;
+};

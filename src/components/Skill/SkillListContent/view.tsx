@@ -9,7 +9,7 @@ import { SkillRow } from '../../../types';
 
 export interface SkillListContentViewProps {
   header: string[];
-  skillList: { [key in SkillRow]: number }[];
+  skillList: SkillRow[];
 }
 
 export const SkillListContentView = ({
@@ -27,8 +27,15 @@ export const SkillListContentView = ({
       </TableHead>
       <TableBody>
         {skillList.map((skill) => (
-          <TableRow key={skill.text}>
-            <TableCell>{skill.text}</TableCell>
+          <TableRow key={skill.label}>
+            <TableCell>{skill.label}</TableCell>
+            <TableCell>{skill.initial}</TableCell>
+            <TableCell>{skill.jobPoint}</TableCell>
+            <TableCell>{skill.interestPoint}</TableCell>
+            <TableCell>{skill.mod}</TableCell>
+            <TableCell>{skill.tmp}</TableCell>
+            <TableCell>{skill.growth}</TableCell>
+            <TableCell>{skill.initial}</TableCell>
           </TableRow>
         ))}
       </TableBody>
