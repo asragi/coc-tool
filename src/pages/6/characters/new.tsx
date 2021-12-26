@@ -9,6 +9,18 @@ import { CharacterInfo } from '../../../components/CharacterInfo';
 import { BasicInfoContent } from '../../../components/BasicInfoContent';
 import { ParameterContent } from '../../../components/ParameterContent';
 import { SkillContent } from '../../../components/Skill/SkillContent';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { i18n } from '../../../../next-i18next.config';
+
+const i18nextNameSpace = ['common'];
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const translations = await serverSideTranslations(locale!, i18nextNameSpace, {
+    i18n,
+  });
+
+  return { props: { ...translations } };
+};
 
 const Edit: NextPage = () => {
   const empty = <div>Empty</div>;

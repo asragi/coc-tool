@@ -17,6 +17,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "next": "latest",
+    "next-i18next": "^10.0.1",
     "react": "latest",
     "react-dom": "latest"
   },

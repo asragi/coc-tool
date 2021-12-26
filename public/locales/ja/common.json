@@ -1,8 +1,10 @@
 {
+  "skill": "技能",
   "initial": "初期",
   "jobPoint": "職業P",
   "interestPoint": "興味P",
   "mod": "修正",
   "tmp": "一時",
-  "growth": "成長"
+  "growth": "成長",
+  "sum": "合計"
 }
