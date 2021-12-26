@@ -4,6 +4,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from '@mui/material';
 import { SkillRow } from '../../../types';
 
@@ -16,6 +17,19 @@ export const SkillListContentView = ({
   header,
   skillList,
 }: SkillListContentViewProps) => {
+  const renderNumberInputField = (value: number) => {
+    return (
+      <TableCell sx={{ p: 0 }}>
+        <TextField
+          inputProps={{ style: { textAlign: 'right' } }}
+          value={value}
+          type='number'
+          sx={{ m: 0 }}
+        />
+      </TableCell>
+    );
+  };
+
   return (
     <TableContainer component='table'>
       <TableHead>
@@ -29,13 +43,13 @@ export const SkillListContentView = ({
         {skillList.map((skill) => (
           <TableRow key={skill.label}>
             <TableCell>{skill.label}</TableCell>
-            <TableCell>{skill.initial}</TableCell>
-            <TableCell>{skill.jobPoint}</TableCell>
-            <TableCell>{skill.interestPoint}</TableCell>
-            <TableCell>{skill.mod}</TableCell>
-            <TableCell>{skill.tmp}</TableCell>
-            <TableCell>{skill.growth}</TableCell>
-            <TableCell>{skill.initial}</TableCell>
+            {renderNumberInputField(skill.initial)}
+            {renderNumberInputField(skill.jobPoint)}
+            {renderNumberInputField(skill.interestPoint)}
+            {renderNumberInputField(skill.mod)}
+            {renderNumberInputField(skill.tmp)}
+            {renderNumberInputField(skill.growth)}
+            {renderNumberInputField(skill.initial)}
           </TableRow>
         ))}
       </TableBody>

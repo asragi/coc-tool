@@ -12,7 +12,7 @@ export const getSkill = (): SkillRow[] => {
       growth: 3,
     },
     {
-      label: 'キック',
+      label: 'マーシャルアーツ',
       initial: 25,
       jobPoint: 15,
       interestPoint: 0,
