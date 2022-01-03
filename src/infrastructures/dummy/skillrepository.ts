@@ -1,8 +1,12 @@
-import { SkillRow } from '../../types';
+import { CharacterId } from '../../models/character';
+import { Skill } from '../../models/skill';
 
-export const getSkill = (): SkillRow[] => {
+export const getSkill = (_: CharacterId): Skill[] => {
+  const ownerId = 'test_owner';
+
   return [
     {
+      owner: ownerId,
       label: 'こぶし',
       initial: 50,
       jobPoint: 0,
@@ -12,6 +16,7 @@ export const getSkill = (): SkillRow[] => {
       growth: 3,
     },
     {
+      owner: ownerId,
       label: 'マーシャルアーツ',
       initial: 25,
       jobPoint: 15,

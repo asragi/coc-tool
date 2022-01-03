@@ -1,14 +1,18 @@
-import { getSkill } from '../../../infrastructures/dummy/skillrepository';
 import { Presenter } from '../../../utils/connect';
 import { SkillListContentViewProps } from './view';
 import { useTranslation } from 'next-i18next';
+import { SkillRepository } from '../../../repositories/skillRepository';
+import { CharacterId } from '../../../models/character';
 
-interface Props {}
+interface Props {
+  skillRepository: SkillRepository;
+  characterId: CharacterId;
+}
 
 export const SkillListContentPresenter: Presenter<
   Props,
   SkillListContentViewProps
-> = ({}: Props) => {
+> = ({ skillRepository, characterId }: Props) => {
   const { t } = useTranslation('common');
   const header = [
     t('skill'),
@@ -20,7 +24,7 @@ export const SkillListContentPresenter: Presenter<
     t('growth'),
     t('sum'),
   ];
-  const skillList = getSkill();
+  const skillList = skillRepository.fetchAll(characterId);
 
   return {
     header,
