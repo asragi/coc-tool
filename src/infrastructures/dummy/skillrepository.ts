@@ -1,7 +1,7 @@
 import { CharacterId } from '../../models/character';
 import { Skill } from '../../models/skill';
 
-export const getSkill = (_: CharacterId): Skill[] => {
+export const fetchAll = (_: CharacterId): Skill[] => {
   const ownerId = 'test_owner';
 
   return [

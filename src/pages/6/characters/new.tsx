@@ -12,6 +12,7 @@ import { SkillContent } from '../../../components/Skill/SkillContent';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { i18n } from '../../../../next-i18next.config';
+import { GetSkillRepository } from '../../../infrastructures/skillRepository';
 
 const i18nextNameSpace = ['common'];
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -24,6 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const Edit: NextPage = () => {
   const empty = <div>Empty</div>;
+  const skillRepository = GetSkillRepository();
 
   return (
     <Container maxWidth='lg'>
@@ -37,7 +39,15 @@ const Edit: NextPage = () => {
           headerText='Parameters'
           innerContent={<ParameterContent version={6} />}
         />
-        <CharacterInfo headerText='Skills' innerContent={<SkillContent />} />
+        <CharacterInfo
+          headerText='Skills'
+          innerContent={
+            <SkillContent
+              skillRepository={skillRepository}
+              characterId='NOT_IMPLEMENTED'
+            />
+          }
+        />
         <CharacterInfo headerText='Battle' innerContent={empty} />
       </Stack>
       <Box

@@ -1,8 +1,23 @@
 import { Stack } from '@mui/material';
+import { CharacterId } from '../../../models/character';
+import { SkillRepository } from '../../../repositories/skillRepository';
 import { SkillListContent } from '../SkillListContent';
 
-export interface SkillContentViewProps {}
+export interface SkillContentViewProps {
+  skillRepository: SkillRepository;
+  characterId: CharacterId;
+}
 
-export const SkillContentView = ({}: SkillContentViewProps) => {
-  return <Stack><SkillListContent /></Stack>;
+export const SkillContentView = ({
+  skillRepository,
+  characterId,
+}: SkillContentViewProps) => {
+  return (
+    <Stack>
+      <SkillListContent
+        skillRepository={skillRepository}
+        characterId={characterId}
+      />
+    </Stack>
+  );
 };
