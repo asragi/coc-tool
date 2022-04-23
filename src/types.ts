@@ -67,4 +67,5 @@ export type SkillRow = {
   mod: number;
   tmp: number;
   growth: number;
+  sum: number;
 };

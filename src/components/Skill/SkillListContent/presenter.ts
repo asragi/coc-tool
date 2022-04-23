@@ -3,11 +3,28 @@ import { SkillListContentViewProps } from './view';
 import { useTranslation } from 'next-i18next';
 import { SkillRepository } from '../../../repositories/skillRepository';
 import { CharacterId } from '../../../models/character';
+import { Skill } from '../../../models/skill';
+import { SkillRow } from '../../../types';
 
 interface Props {
   skillRepository: SkillRepository;
   characterId: CharacterId;
 }
+
+const calcSum = (skill: Skill): SkillRow => {
+  const sum =
+    skill.initial +
+    skill.jobPoint +
+    skill.interestPoint +
+    skill.mod +
+    skill.tmp +
+    skill.growth;
+
+  return {
+    ...skill,
+    sum,
+  };
+};
 
 export const SkillListContentPresenter: Presenter<
   Props,
@@ -25,9 +42,10 @@ export const SkillListContentPresenter: Presenter<
     t('sum'),
   ];
   const skillList = skillRepository.fetchAll(characterId);
+  const skillRows = skillList.map(s => calcSum(s));
 
   return {
     header,
-    skillList,
+    skillList: skillRows,
   };
 };

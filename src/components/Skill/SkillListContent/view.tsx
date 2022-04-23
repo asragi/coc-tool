@@ -49,7 +49,7 @@ export const SkillListContentView = ({
             {renderNumberInputField(skill.mod)}
             {renderNumberInputField(skill.tmp)}
             {renderNumberInputField(skill.growth)}
-            {renderNumberInputField(skill.initial)}
+            {renderNumberInputField(skill.sum)}
           </TableRow>
         ))}
       </TableBody>
