@@ -8,11 +8,11 @@ import { Stack } from '@mui/material';
 import { CharacterInfo } from '../../../components/CharacterInfo';
 import { BasicInfoContent } from '../../../components/BasicInfoContent';
 import { ParameterContent } from '../../../components/ParameterContent';
-import { SkillContent } from '../../../components/Skill/SkillContent';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { i18n } from '../../../../next-i18next.config';
 import { GetSkillRepository } from '../../../infrastructures/skillRepository';
+import { SkillListContent } from '../../../features/skill';
 
 const i18nextNameSpace = ['common'];
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -42,10 +42,7 @@ const Edit: NextPage = () => {
         <CharacterInfo
           headerText='Skills'
           innerContent={
-            <SkillContent
-              skillRepository={skillRepository}
-              characterId='NOT_IMPLEMENTED'
-            />
+            <SkillListContent id='Not Implemented'/>
           }
         />
         <CharacterInfo headerText='Battle' innerContent={empty} />

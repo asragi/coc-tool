@@ -6,7 +6,17 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
-import { SkillRow } from '../../../types';
+
+export type SkillRow = {
+  label: string;
+  initial: number;
+  jobPoint: number;
+  interestPoint: number;
+  mod: number;
+  tmp: number;
+  growth: number;
+  sum: number;
+};
 
 export interface SkillListContentViewProps {
   header: string[];

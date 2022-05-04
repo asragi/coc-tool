@@ -1,14 +1,9 @@
-import { Presenter } from '../../../utils/connect';
-import { SkillListContentViewProps } from './view';
 import { useTranslation } from 'next-i18next';
-import { SkillRepository } from '../../../repositories/skillRepository';
-import { CharacterId } from '../../../models/character';
-import { Skill } from '../../../models/skill';
-import { SkillRow } from '../../../types';
+import { Skill } from './types';
+import { SkillRow } from './view';
 
 interface Props {
-  skillRepository: SkillRepository;
-  characterId: CharacterId;
+  skillList: Skill[];
 }
 
 const calcSum = (skill: Skill): SkillRow => {
@@ -26,10 +21,7 @@ const calcSum = (skill: Skill): SkillRow => {
   };
 };
 
-export const SkillListContentPresenter: Presenter<
-  Props,
-  SkillListContentViewProps
-> = ({ skillRepository, characterId }: Props) => {
+export const SkillListContentPresenter = ({ skillList }: Props) => {
   const { t } = useTranslation('common');
   const header = [
     t('skill'),
@@ -41,7 +33,6 @@ export const SkillListContentPresenter: Presenter<
     t('growth'),
     t('sum'),
   ];
-  const skillList = skillRepository.fetchAll(characterId);
   const skillRows = skillList.map(s => calcSum(s));
 
   return {
