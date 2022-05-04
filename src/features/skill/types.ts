@@ -9,4 +9,5 @@ export type Skill = {
   mod: number;
   tmp: number;
   growth: number;
+  deleted: boolean;
 };

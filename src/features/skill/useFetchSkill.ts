@@ -21,6 +21,7 @@ const testSkillData: Skill[] = [{
   mod: 0,
   tmp: 1,
   growth: 3,
+  deleted: false,
 }];
 
 export const useFetchSkill = ({ id, url }: Props) => {
