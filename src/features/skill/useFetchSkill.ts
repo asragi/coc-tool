@@ -4,7 +4,7 @@ import { sleep } from '../../common/sleep';
 import { ENV } from '../../config';
 import { CharacterId } from '../../models/character';
 import { batchGetSelector } from './selector';
-import { fetchPosts } from './slice';
+import { fetchSkills } from './slice';
 import { Skill } from './types';
 
 interface Props {
@@ -30,13 +30,13 @@ export const useFetchSkill = ({ id, url }: Props) => {
 
   useEffect(() => {
     if (ENV === 'development') {
-      sleep(1, () => dispatch(fetchPosts(testSkillData)));
+      sleep(1, () => dispatch(fetchSkills(testSkillData)));
 
       return;
     }
     fetch(urlString)
       .then((res) => res.json())
-      .then((data) => dispatch(fetchPosts(data)));
+      .then((data) => dispatch(fetchSkills(data)));
   }, [dispatch, urlString]);
 
   return {

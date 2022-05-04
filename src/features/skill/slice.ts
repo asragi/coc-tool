@@ -13,11 +13,11 @@ const skillSlice = createSlice({
   name: 'Skill',
   initialState,
   reducers: {
-    fetchPosts: (state, action: PayloadAction<Skill[]>) => {
+    fetchSkills: (state, action: PayloadAction<Skill[]>) => {
       state.skills = action.payload;
     },
   },
 });
 
-export const { fetchPosts } = skillSlice.actions;
+export const { fetchSkills } = skillSlice.actions;
 export const skillReducer = skillSlice.reducer;
