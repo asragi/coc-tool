@@ -1,4 +1,7 @@
+export type SkillId = number;
+
 export type Skill = {
+  id: SkillId;
   label: string;
   initial: number;
   jobPoint: number;

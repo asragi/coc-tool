@@ -1,8 +1,9 @@
-import { fetch, skillReducer } from './slice';
+import { fetchPosts, skillReducer } from './slice';
 
 test('fetch skill', () => {
   const fetchedSkills = [
     {
+      id: 1,
       label: 'Test',
       initial: 20,
       jobPoint: 20,
@@ -13,7 +14,7 @@ test('fetch skill', () => {
     },
   ];
 
-  expect(skillReducer(undefined, fetch(fetchedSkills))).toEqual({
+  expect(skillReducer(undefined, fetchPosts(fetchedSkills))).toEqual({
     skills: fetchedSkills,
   });
 });
