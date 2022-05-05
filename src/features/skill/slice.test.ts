@@ -40,9 +40,23 @@ test('fetch skill', () => {
 
 test('add skill', () => {
   const initialState = [skillA];
+  const newSkill = {
+    label: 'TestC',
+    initial: 15,
+    jobPoint: 10,
+    interestPoint: 4,
+    mod: 3,
+    tmp: 1,
+    growth: 2,
+  };
+  const expectedSkill = {
+    ...newSkill,
+    id: 2,
+    deleted: false,
+  };
 
-  expect(skillReducer({ skills: initialState }, addSkill(skillB))).toEqual({
-    skills: [skillA, skillB],
+  expect(skillReducer({ skills: initialState }, addSkill(newSkill))).toEqual({
+    skills: [skillA, expectedSkill],
   });
 });
 

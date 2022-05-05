@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 
 export interface CustomButtonViewProps {
   text: string;
-  onClick: () => {};
+  onClick: () => void;
   className?: string;
 }
 

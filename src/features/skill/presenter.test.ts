@@ -6,6 +6,12 @@ jest.mock('next-i18next', () => ({
   }),
 }));
 
+const mockDispatch = jest.fn();
+
+jest.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+}));
+
 const skill = {
   id: 1,
   label: 'test',
@@ -31,4 +37,7 @@ test('skill list content presenter', () => {
     skill.growth;
   expect(resultSkillRow.sum).toBe(expectSum);
   expect(skillList.length).toBe(1);
+  expect(mockDispatch).not.toHaveBeenCalled();
+  result.onClickAdd();
+  expect(mockDispatch).toHaveBeenCalled();
 });
