@@ -6,6 +6,7 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
+import { CustomButton } from '../../components/CustomButton';
 
 export type SkillRow = {
   label: string;
@@ -21,11 +22,15 @@ export type SkillRow = {
 export interface SkillListContentViewProps {
   header: string[];
   skillList: SkillRow[];
+  onClickAdd: () => void;
+  addButtonText: string;
 }
 
 export const SkillListContentView = ({
   header,
   skillList,
+  onClickAdd,
+  addButtonText,
 }: SkillListContentViewProps) => {
   const renderNumberInputField = (value: number) => {
     return (
@@ -41,28 +46,34 @@ export const SkillListContentView = ({
   };
 
   return (
-    <TableContainer component='table'>
-      <TableHead>
-        <TableRow>
-          {header.map((label) => (
-            <TableCell key={label}>{label}</TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {skillList.map((skill) => (
-          <TableRow key={skill.label}>
-            <TableCell>{skill.label}</TableCell>
-            {renderNumberInputField(skill.initial)}
-            {renderNumberInputField(skill.jobPoint)}
-            {renderNumberInputField(skill.interestPoint)}
-            {renderNumberInputField(skill.mod)}
-            {renderNumberInputField(skill.tmp)}
-            {renderNumberInputField(skill.growth)}
-            {renderNumberInputField(skill.sum)}
+    <div>
+      <TableContainer component='table'>
+        <TableHead>
+          <TableRow>
+            {header.map((label) => (
+              <TableCell key={label}>{label}</TableCell>
+            ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </TableContainer>
+        </TableHead>
+        <TableBody>
+          {skillList.map((skill, index) => (
+            <TableRow key={index}>
+              <TableCell>{skill.label}</TableCell>
+              {renderNumberInputField(skill.initial)}
+              {renderNumberInputField(skill.jobPoint)}
+              {renderNumberInputField(skill.interestPoint)}
+              {renderNumberInputField(skill.mod)}
+              {renderNumberInputField(skill.tmp)}
+              {renderNumberInputField(skill.growth)}
+              {renderNumberInputField(skill.sum)}
+            </TableRow>
+          ))}
+        </TableBody>
+      </TableContainer>
+      <CustomButton
+        text={addButtonText}
+        onClick={onClickAdd}
+      />
+    </div>
   );
 };
