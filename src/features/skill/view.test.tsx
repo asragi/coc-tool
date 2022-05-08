@@ -23,6 +23,7 @@ test('skill list view', () => {
       header={header}
       skillList={skill}
       addButtonText={buttonText}
+      onChangeSkillValue={() => {}}
     />
   );
   expect(onClickAdd).not.toHaveBeenCalled();

@@ -23,3 +23,5 @@ export type Skill = {
   growth: number;
   deleted: boolean;
 };
+
+export type SkillProperty = keyof Skill;
