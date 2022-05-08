@@ -53,9 +53,22 @@ const skillSlice = createSlice({
       }
       state.skills[target].deleted = true;
     },
+    updateSkillName: (
+      state,
+      { payload }: PayloadAction<{ id: SkillId; name: string }>
+    ) => {
+      const target = state.skills.findIndex((s) => s.id === payload.id);
+      if (target === -1) return;
+      state.skills[target].label = payload.name;
+    },
   },
 });
 
-export const { fetchSkills, addSkill, updateSkill, deleteSkill } =
-  skillSlice.actions;
+export const {
+  fetchSkills,
+  addSkill,
+  updateSkill,
+  deleteSkill,
+  updateSkillName,
+} = skillSlice.actions;
 export const skillReducer = skillSlice.reducer;
