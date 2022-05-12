@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Skill, SkillId } from './types';
+import { Skill, SkillId, SkillProperty } from './types';
 
 type SkillState = {
   skills: Skill[];
@@ -8,6 +8,12 @@ type SkillState = {
 const initialState: SkillState = {
   skills: [],
 };
+
+interface UpdateProps {
+  id: SkillId;
+  property: SkillProperty;
+  after: number;
+}
 
 const skillSlice = createSlice({
   name: 'Skill',
@@ -31,14 +37,13 @@ const skillSlice = createSlice({
       };
       state.skills = [...state.skills, newSkill];
     },
-    updateSkill: (state, action: PayloadAction<Skill>) => {
-      const targetIndex = state.skills.findIndex(
-        (e) => e.id === action.payload.id
-      );
+    updateSkill: (state, { payload }: PayloadAction<UpdateProps>) => {
+      const targetIndex = state.skills.findIndex((e) => e.id === payload.id);
       if (targetIndex === -1) {
         return;
       }
-      state.skills[targetIndex] = action.payload;
+      const targetSkill = state.skills[targetIndex];
+      targetSkill[payload.property] = payload.after;
     },
     deleteSkill: (state, action: PayloadAction<SkillId>) => {
       const target = state.skills.findIndex((s) => s.id === action.payload);
@@ -47,9 +52,22 @@ const skillSlice = createSlice({
       }
       state.skills[target].deleted = true;
     },
+    updateSkillName: (
+      state,
+      { payload }: PayloadAction<{ id: SkillId; name: string }>
+    ) => {
+      const target = state.skills.findIndex((s) => s.id === payload.id);
+      if (target === -1) return;
+      state.skills[target].label = payload.name;
+    },
   },
 });
 
-export const { fetchSkills, addSkill, updateSkill, deleteSkill } =
-  skillSlice.actions;
+export const {
+  fetchSkills,
+  addSkill,
+  updateSkill,
+  deleteSkill,
+  updateSkillName,
+} = skillSlice.actions;
 export const skillReducer = skillSlice.reducer;

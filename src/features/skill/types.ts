@@ -12,14 +12,19 @@ export const createInitialSkill: () => InitialSkill = () => ({
   growth: 0,
 });
 
-export type Skill = {
+export type Skill = SkillValue & {
   id: SkillId;
   label: string;
+  deleted: boolean;
+};
+
+export type SkillValue = {
   initial: number;
   jobPoint: number;
   interestPoint: number;
   mod: number;
   tmp: number;
   growth: number;
-  deleted: boolean;
-};
+}
+
+export type SkillProperty = keyof SkillValue;

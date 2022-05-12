@@ -1,7 +1,8 @@
 import { useTranslation } from 'next-i18next';
+import { ChangeEvent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { addSkill } from './slice';
-import { Skill } from './types';
+import { addSkill, updateSkill } from './slice';
+import { Skill, SkillId, SkillProperty } from './types';
 import { SkillRow } from './view';
 
 interface Props {
@@ -47,16 +48,32 @@ export const SkillListContentPresenter = ({ skillList }: Props) => {
     t('sum'),
   ];
   const addButtonText = 'Add';
-  const skillRows = skillList.map(s => calcSum(s));
+  const skillRows = skillList.map((s) => calcSum(s));
 
-  const onClickAdd = () => {
+  const onClickAdd = useCallback(() => {
     dispatch(addSkill(initialSkill));
-  };
+  }, [dispatch]);
+
+  const onChangeSkillValue = useCallback(
+    ({
+      e,
+      id,
+      property,
+    }: {
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+      id: SkillId;
+      property: SkillProperty;
+    }) => {
+      dispatch(updateSkill({ id, property, after: Number(e.target.value) }));
+    },
+    [dispatch]
+  );
 
   return {
     header,
     skillList: skillRows,
     onClickAdd,
     addButtonText,
+    onChangeSkillValue,
   };
 };

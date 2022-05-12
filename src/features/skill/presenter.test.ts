@@ -12,6 +12,10 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
 }));
 
+jest.mock('react', () => ({
+  useCallback: (f: () => void, _: any) => { return f; },
+}));
+
 const skill = {
   id: 1,
   label: 'test',

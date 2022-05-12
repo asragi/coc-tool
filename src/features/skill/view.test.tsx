@@ -13,6 +13,10 @@ const header = [
   'sum',
 ];
 
+jest.mock('./NameField', () => ({
+  NameField: () => 'NameField',
+}));
+
 test('skill list view', () => {
   const onClickAdd = jest.fn();
   const buttonText = 'Button Text';
@@ -23,6 +27,7 @@ test('skill list view', () => {
       header={header}
       skillList={skill}
       addButtonText={buttonText}
+      onChangeSkillValue={() => {}}
     />
   );
   expect(onClickAdd).not.toHaveBeenCalled();
