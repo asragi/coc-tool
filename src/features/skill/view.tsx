@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { CustomButton } from '../../components/CustomButton';
+import { NameField } from './NameField';
 import { SkillId, SkillProperty } from './types';
 
 export type SkillRow = {
@@ -57,7 +58,7 @@ export const SkillListContentView = ({
   const renderNumberInputField = (
     value: number,
     id: SkillId,
-    p: SkillProperty,
+    p: SkillProperty
   ) => {
     return (
       <TableCell sx={{ p: 0 }}>
@@ -85,7 +86,9 @@ export const SkillListContentView = ({
         <TableBody>
           {skillList.map((skill, index) => (
             <TableRow key={index}>
-              <TableCell>{skill.label}</TableCell>
+              <TableCell>
+                <NameField id={skill.id} />
+              </TableCell>
               {renderNumberInputField(skill.initial, skill.id, 'initial')}
               {renderNumberInputField(skill.jobPoint, skill.id, 'jobPoint')}
               {renderNumberInputField(

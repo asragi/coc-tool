@@ -13,6 +13,10 @@ const header = [
   'sum',
 ];
 
+jest.mock('./NameField', () => ({
+  NameField: () => 'NameField',
+}));
+
 test('skill list view', () => {
   const onClickAdd = jest.fn();
   const buttonText = 'Button Text';
