@@ -33,6 +33,8 @@ export interface SkillListContentViewProps {
     property: SkillProperty;
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
   }) => void;
+  deleteText: string;
+  onDeleteSkill: (props: { id: SkillId }) => void;
 }
 
 export const SkillListContentView = ({
@@ -41,6 +43,8 @@ export const SkillListContentView = ({
   onClickAdd,
   addButtonText,
   onChangeSkillValue,
+  deleteText,
+  onDeleteSkill,
 }: SkillListContentViewProps) => {
   const renderSum = (value: number) => {
     return (
@@ -73,6 +77,12 @@ export const SkillListContentView = ({
     );
   };
 
+  const renderDeleteButton = (id: SkillId) => (
+    <TableCell sx={{ p: 0 }}>
+      <CustomButton text={deleteText} onClick={() => onDeleteSkill({ id })} />
+    </TableCell>
+  );
+
   return (
     <div>
       <TableContainer component='table'>
@@ -81,6 +91,7 @@ export const SkillListContentView = ({
             {header.map((label) => (
               <TableCell key={label}>{label}</TableCell>
             ))}
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -100,6 +111,7 @@ export const SkillListContentView = ({
               {renderNumberInputField(skill.tmp, skill.id, 'tmp')}
               {renderNumberInputField(skill.growth, skill.id, 'growth')}
               {renderSum(skill.sum)}
+              {renderDeleteButton(skill.id)}
             </TableRow>
           ))}
         </TableBody>

@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import { ChangeEvent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { addSkill, updateSkill } from './slice';
+import { addSkill, deleteSkill, updateSkill } from './slice';
 import { Skill, SkillId, SkillProperty } from './types';
 import { SkillRow } from './view';
 
@@ -48,6 +48,7 @@ export const SkillListContentPresenter = ({ skillList }: Props) => {
     t('sum'),
   ];
   const addButtonText = 'Add';
+  const deleteText = 'delete';
   const skillRows = skillList.map((s) => calcSum(s));
 
   const onClickAdd = useCallback(() => {
@@ -69,11 +70,20 @@ export const SkillListContentPresenter = ({ skillList }: Props) => {
     [dispatch]
   );
 
+  const onClickDelete = useCallback(
+    ({ id }: { id: SkillId }) => {
+      dispatch(deleteSkill(id));
+    },
+    [dispatch]
+  );
+
   return {
     header,
     skillList: skillRows,
     onClickAdd,
     addButtonText,
     onChangeSkillValue,
+    onDeleteSkill: onClickDelete,
+    deleteText,
   };
 };
