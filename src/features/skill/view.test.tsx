@@ -2,7 +2,6 @@ import {
   fireEvent,
   render,
   RenderResult,
-  screen,
 } from '@testing-library/react';
 import { createInitialSkill } from './types';
 import { SkillListContentView } from './view';
