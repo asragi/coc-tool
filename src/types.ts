@@ -56,16 +56,3 @@ export type SomeParameter = ParameterKey | ExtraParameterKey;
 export type ParameterSet = {
   [key in SomeParameter]: { [key in ParameterType]: number };
 };
-
-// Skill
-
-export type SkillRow = {
-  label: string;
-  initial: number;
-  jobPoint: number;
-  interestPoint: number;
-  mod: number;
-  tmp: number;
-  growth: number;
-  sum: number;
-};
