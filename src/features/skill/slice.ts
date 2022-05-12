@@ -43,7 +43,6 @@ const skillSlice = createSlice({
         return;
       }
       const targetSkill = state.skills[targetIndex];
-      const val = targetSkill[payload.property];
       targetSkill[payload.property] = payload.after;
     },
     deleteSkill: (state, action: PayloadAction<SkillId>) => {
