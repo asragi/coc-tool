@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sleep } from '../../common/sleep';
 import { ENV } from '../../config';
 import { CharacterId } from '../../models/character';
-import { batchGetSelector } from './selector';
+import { getExistingSkillsSelector } from './selector';
 import { fetchSkills } from './slice';
 import { Skill } from './types';
 
@@ -26,7 +26,7 @@ const testSkillData: Skill[] = [{
 
 export const useFetchSkill = ({ id, url }: Props) => {
   const dispatch = useDispatch();
-  const skills = useSelector(batchGetSelector);
+  const skills = useSelector(getExistingSkillsSelector);
   const urlString = url.toString();
 
   useEffect(() => {

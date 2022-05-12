@@ -4,7 +4,10 @@ import { SkillId } from './types';
 
 const skillSelector = (state: RootState) => state.skill;
 
-export const batchGetSelector = createSelector(skillSelector, (r) => r.skills);
+export const getExistingSkillsSelector = createSelector(skillSelector, (r) =>
+  r.skills.filter((s) => !s.deleted)
+);
+
 export const skillNameSelector = createSelector(
   [skillSelector, (_state, id: SkillId) => id],
   (r, id) => {
