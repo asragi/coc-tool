@@ -32,6 +32,7 @@ const initialSkill: Omit<Skill, 'id' | 'deleted'> = {
   mod: 0,
   tmp: 0,
   growth: 0,
+  category: 'battle',
 };
 
 export const SkillListContentPresenter = ({ skillList }: Props) => {

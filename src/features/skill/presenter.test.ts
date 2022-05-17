@@ -1,4 +1,5 @@
 import { SkillListContentPresenter } from './presenter';
+import { Skill } from './types';
 
 jest.mock('next-i18next', () => ({
   useTranslation: () => ({
@@ -16,8 +17,8 @@ jest.mock('react', () => ({
   useCallback: (f: () => void, _: any) => { return f; },
 }));
 
-const skill = {
-  id: 1,
+const skill: Skill = {
+  id: 't',
   label: 'test',
   initial: 20,
   jobPoint: 10,
@@ -26,6 +27,7 @@ const skill = {
   tmp: 2,
   growth: 3,
   deleted: false,
+  category: 'action',
 };
 
 test('skill list content presenter', () => {

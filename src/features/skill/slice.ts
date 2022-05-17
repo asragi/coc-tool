@@ -26,9 +26,8 @@ const skillSlice = createSlice({
       const skill = action.payload;
       const newId = (() => {
         const { skills } = state;
-        if (skills.length < 1) return 0;
 
-        return Math.max(...skills.map((skill) => skill.id)) + 1;
+        return `skill${skills.length}`;
       })();
       const newSkill = {
         ...skill,
