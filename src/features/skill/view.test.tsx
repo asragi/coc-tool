@@ -1,9 +1,5 @@
-import {
-  fireEvent,
-  render,
-  RenderResult,
-} from '@testing-library/react';
-import { createInitialSkill } from './types';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
+import { testCreateSkill } from './testHelper/testCreateSkill';
 import { SkillListContentView } from './view';
 
 const header = [
@@ -21,12 +17,14 @@ jest.mock('./NameField', () => ({
   NameField: () => 'NameField',
 }));
 
+const dummySkill = testCreateSkill();
+
 describe('skill list view', () => {
   const onClickAdd = jest.fn();
   const onDelete = jest.fn();
   const buttonText = 'Button Text';
   const deleteText = 'Delete';
-  const skill = [{ ...createInitialSkill(), id: 1, deleted: false, sum: 50 }];
+  const skill = [{ ...dummySkill, sum: 40 }];
 
   let result: RenderResult;
 

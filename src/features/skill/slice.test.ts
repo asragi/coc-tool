@@ -6,31 +6,12 @@ import {
   skillReducer,
   updateSkillName,
 } from './slice';
-import { SkillProperty } from './types';
+import { testCreateSkill } from './testHelper/testCreateSkill';
+import { Skill, SkillCategory, SkillId, SkillProperty } from './types';
 
-const skillA = {
-  id: 1,
-  label: 'Test',
-  initial: 20,
-  jobPoint: 20,
-  interestPoint: 15,
-  mod: 2,
-  tmp: 5,
-  growth: 6,
-  deleted: false,
-};
+const skillA = testCreateSkill({ id: 'a' });
+const skillB = testCreateSkill({ id: 'b' });
 
-const skillB = {
-  id: 2,
-  label: 'TestB',
-  initial: 20,
-  jobPoint: 20,
-  interestPoint: 15,
-  mod: 2,
-  tmp: 5,
-  growth: 6,
-  deleted: false,
-};
 
 test('fetch skill', () => {
   const fetchedSkills = [skillA, skillB];
@@ -42,18 +23,20 @@ test('fetch skill', () => {
 
 test('add skill', () => {
   const initialState = [skillA];
+  const category: SkillCategory = 'battle';
   const newSkill = {
-    label: 'TestC',
+    label: 'skill1',
     initial: 15,
     jobPoint: 10,
     interestPoint: 4,
     mod: 3,
     tmp: 1,
     growth: 2,
+    category,
   };
-  const expectedSkill = {
+  const expectedSkill: Skill = {
     ...newSkill,
-    id: 2,
+    id: 'skill1',
     deleted: false,
   };
 
@@ -64,9 +47,9 @@ test('add skill', () => {
 
 test('update skill', () => {
   const initialState = { skills: [skillA, skillB] };
-  const updateContent: { id: number; property: SkillProperty; after: number } =
+  const updateContent: { id: SkillId; property: SkillProperty; after: number } =
     {
-      id: 1,
+      id: skillA.id,
       property: 'mod',
       after: 10,
     };
@@ -82,12 +65,13 @@ test('update skill', () => {
 
 test('delete skill', () => {
   const initialState = { skills: [skillA, skillB] };
+  const id = skillA.id;
   const after = {
     ...skillA,
     deleted: true,
   };
 
-  expect(skillReducer(initialState, deleteSkill(1))).toEqual({
+  expect(skillReducer(initialState, deleteSkill(id))).toEqual({
     skills: [after, skillB],
   });
 });
