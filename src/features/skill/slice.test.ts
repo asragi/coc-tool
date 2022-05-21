@@ -1,4 +1,3 @@
-import { initialSkills } from './constant/initialSkills';
 import {
   fetchSkills,
   addSkill,
